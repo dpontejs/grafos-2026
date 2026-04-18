@@ -57,6 +57,10 @@ func main() {
 			r.Adiciona("ARTICULACOES_E_BLOCOS", algoritmos.FormataLowpt(g))
 		}
 
+		if nome == "GRAFO_1" || nome == "GRAFO_2" {
+			r.Adiciona("BIPARTIDO", algoritmos.FormataBipartido(g))
+		}
+
 		// -------------------------------------------------------
 		// Veja o README para saber como fazer a adição de seções.
 		// -------------------------------------------------------
