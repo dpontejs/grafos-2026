@@ -125,20 +125,6 @@ func (g *Grafo) NumArestas() int {
 	return total
 }
 
-// SaoAdjacentes verifica se dois vértices são vizinhos
-func (g *Grafo) SaoAdjacentes(a, b string) bool {
-	vizinhos, ok := g.ListaAdj[a]
-	if !ok {
-		return false
-	}
-	for _, v := range vizinhos {
-		if v == b {
-			return true
-		}
-	}
-	return false
-}
-
 // GetVizinhos retorna os vizinhos de um vértice
 func (g *Grafo) GetVizinhos(id string) []string {
 	return g.ListaAdj[id]

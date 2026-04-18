@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/PauloFH/grafos-2026/internal/algoritmos"
 	"github.com/PauloFH/grafos-2026/internal/grafo"
 )
 
@@ -101,4 +102,46 @@ func FormataVertices(g *grafo.Grafo) string {
 // FormataArestas gera info básica das arestas
 func FormataArestas(g *grafo.Grafo) string {
 	return fmt.Sprintf("  Total de arestas: %d\n", g.NumArestas())
+}
+
+// FormataMatriz gera o texto da matriz de adjacência
+func FormataMatriz(g *grafo.Grafo, m [][]int) string {
+	n := len(g.Vertices)
+	if len(m) != n {
+		return "  (matriz nao gerada)\n"
+	}
+	for i := range m {
+		if len(m[i]) != n {
+			return "  (matriz com dimensoes invalidas)\n"
+		}
+	}
+	var sb strings.Builder
+
+	fmt.Fprintf(&sb, "%5s", "")
+	for _, v := range g.Vertices {
+		fmt.Fprintf(&sb, "%4s", v)
+	}
+	sb.WriteByte('\n')
+
+	for i, v := range g.Vertices {
+		fmt.Fprintf(&sb, "%4s ", v)
+		for _, val := range m[i] {
+			fmt.Fprintf(&sb, "%4d", val)
+		}
+		sb.WriteByte('\n')
+	}
+	return sb.String()
+}
+
+// FormataAdjacentes lista todos os pares de vértices adjacentes
+func FormataAdjacentes(g *grafo.Grafo) string {
+	var sb strings.Builder
+	sep := " - "
+	if g.Direcionado {
+		sep = " -> "
+	}
+	for _, par := range algoritmos.ParesAdjacentes(g) {
+		fmt.Fprintf(&sb, "  %s%s%s\n", par[0], sep, par[1])
+	}
+	return sb.String()
 }
