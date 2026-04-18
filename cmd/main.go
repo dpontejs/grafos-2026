@@ -53,6 +53,10 @@ func main() {
 			r.Adiciona("DFS", algoritmos.FormataDFS(g, g.Vertices[0]))
 		}
 
+		if nome == "GRAFO_3" {
+			r.Adiciona("ARTICULACOES_E_BLOCOS", algoritmos.FormataLowpt(g))
+		}
+
 		// -------------------------------------------------------
 		// Veja o README para saber como fazer a adição de seções.
 		// -------------------------------------------------------
