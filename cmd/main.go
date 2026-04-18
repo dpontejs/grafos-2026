@@ -41,9 +41,9 @@ func main() {
 		r.Adiciona("VERTICES", relatorio.FormataVertices(g))
 		r.Adiciona("ARESTAS", relatorio.FormataArestas(g))
 		r.Adiciona("LISTA_DE_ADJACENCIA", relatorio.FormataLista(g))
-		conversoes.ListaParaMatriz(g)
-		r.Adiciona("MATRIZ_DE_ADJACENCIA", relatorio.FormataMatriz(g))
-		conversoes.MatrizParaLista(g)
+		m := conversoes.ListaParaMatriz(g)
+		r.Adiciona("MATRIZ_DE_ADJACENCIA", relatorio.FormataMatriz(g, m))
+		conversoes.MatrizParaLista(g, m)
 		r.Adiciona("LISTA_RECONVERTIDA_DA_MATRIZ", relatorio.FormataLista(g))
 		r.Adiciona("SAO_ADJACENTES", relatorio.FormataAdjacentes(g))
 

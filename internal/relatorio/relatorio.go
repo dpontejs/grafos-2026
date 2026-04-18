@@ -105,25 +105,30 @@ func FormataArestas(g *grafo.Grafo) string {
 }
 
 // FormataMatriz gera o texto da matriz de adjacência
-func FormataMatriz(g *grafo.Grafo) string {
-	if len(g.MatrizAdj) == 0 {
+func FormataMatriz(g *grafo.Grafo, m [][]int) string {
+	n := len(g.Vertices)
+	if len(m) != n {
 		return "  (matriz nao gerada)\n"
+	}
+	for i := range m {
+		if len(m[i]) != n {
+			return "  (matriz com dimensoes invalidas)\n"
+		}
 	}
 	var sb strings.Builder
 
-	// Cabeçalho
-	sb.WriteString("     ")
+	fmt.Fprintf(&sb, "%5s", "")
 	for _, v := range g.Vertices {
-		sb.WriteString(fmt.Sprintf("%4s", v))
+		fmt.Fprintf(&sb, "%4s", v)
 	}
-	sb.WriteString("\n")
+	sb.WriteByte('\n')
 
 	for i, v := range g.Vertices {
-		sb.WriteString(fmt.Sprintf("%4s ", v))
-		for _, val := range g.MatrizAdj[i] {
-			sb.WriteString(fmt.Sprintf("%4d", val))
+		fmt.Fprintf(&sb, "%4s ", v)
+		for _, val := range m[i] {
+			fmt.Fprintf(&sb, "%4d", val)
 		}
-		sb.WriteString("\n")
+		sb.WriteByte('\n')
 	}
 	return sb.String()
 }
@@ -131,12 +136,12 @@ func FormataMatriz(g *grafo.Grafo) string {
 // FormataAdjacentes lista todos os pares de vértices adjacentes
 func FormataAdjacentes(g *grafo.Grafo) string {
 	var sb strings.Builder
-	for _, v := range g.Vertices {
-		for _, viz := range g.ListaAdj[v] {
-			if algoritmos.SaoAdjacentes(g, v, viz) {
-				sb.WriteString(fmt.Sprintf("  %s - %s\n", v, viz))
-			}
-		}
+	sep := " - "
+	if g.Direcionado {
+		sep = " -> "
+	}
+	for _, par := range algoritmos.ParesAdjacentes(g) {
+		fmt.Fprintf(&sb, "  %s%s%s\n", par[0], sep, par[1])
 	}
 	return sb.String()
 }

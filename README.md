@@ -32,10 +32,11 @@ Se a saída precisa de um texto formatado, adicione uma função `Formata<Algo>(
 
 ### Passo 3 — Chame no main
 
-No `cmd/main.go`, adicione apenas a linha de relatório:
+No `cmd/main.go`, adicione a linha de relatório. Se sua função depender de uma conversão prévia, chame-a antes:
 
 ```go
-r.Adiciona("NOME_DA_SECAO", relatorio.Formata<Algo>(g))
+conversoes.ListaParaMatriz(g)
+r.Adiciona("MATRIZ_DE_ADJACENCIA", relatorio.FormataMatriz(g))
 ```
 
 ### Passo 4 — Rode e verifique
@@ -54,7 +55,6 @@ type Grafo struct {
     Direcionado bool
     Vertices    []string            // vértices na ordem de leitura
     ListaAdj    map[string][]string // vértice -> vizinhos
-    MatrizAdj   [][]int             // preenchida por ListaParaMatriz()
 }
 ```
 
@@ -70,6 +70,5 @@ type Grafo struct {
 | `g.RemoverAresta(a, b)` | remove conexão |
 | `g.NumVertices()` | total de vértices |
 | `g.NumArestas()` | total de arestas |
-| `g.SaoAdjacentes(a, b)` | verifica se a e b são vizinhos |
 | `g.GetVizinhos(id)` | retorna vizinhos de um vértice |
 

@@ -2,7 +2,8 @@ package conversoes
 
 import "github.com/PauloFH/grafos-2026/internal/grafo"
 
-func ListaParaMatriz(g *grafo.Grafo) {
+
+func ListaParaMatriz(g *grafo.Grafo) [][]int {
 	n := len(g.Vertices)
 	idx := make(map[string]int, n)
 	for i, v := range g.Vertices {
@@ -17,22 +18,36 @@ func ListaParaMatriz(g *grafo.Grafo) {
 	for _, v := range g.Vertices {
 		i := idx[v]
 		for _, viz := range g.ListaAdj[v] {
-			j := idx[viz]
+			j, ok := idx[viz]
+			if !ok {
+				continue
+			}
 			m[i][j] = 1
 		}
 	}
 
-	g.MatrizAdj = m
+	return m
 }
 
-func MatrizParaLista(g *grafo.Grafo) {
+
+func MatrizParaLista(g *grafo.Grafo, m [][]int) {
+	n := len(g.Vertices)
+	if len(m) != n {
+		return
+	}
+	for i := range m {
+		if len(m[i]) != n {
+			return
+		}
+	}
+
 	for _, v := range g.Vertices {
 		g.ListaAdj[v] = make([]string, 0)
 	}
 
 	for i, v := range g.Vertices {
 		for j, viz := range g.Vertices {
-			if g.MatrizAdj[i][j] == 1 {
+			if m[i][j] == 1 {
 				g.ListaAdj[v] = append(g.ListaAdj[v], viz)
 			}
 		}

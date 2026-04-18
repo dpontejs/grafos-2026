@@ -12,7 +12,6 @@ type Grafo struct {
 	Direcionado bool
 	Vertices    []string            // lista de vértices na ordem
 	ListaAdj    map[string][]string // vértice -> vizinhos
-	MatrizAdj   [][]int             // matriz de adjacência
 }
 
 // NovoGrafo cria um grafo vazio
@@ -22,7 +21,6 @@ func NovoGrafo(direcionado bool, nome string) *Grafo {
 		Direcionado: direcionado,
 		Vertices:    make([]string, 0),
 		ListaAdj:    make(map[string][]string),
-		MatrizAdj:   make([][]int, 0),
 	}
 }
 
@@ -125,20 +123,6 @@ func (g *Grafo) NumArestas() int {
 		total /= 2
 	}
 	return total
-}
-
-// SaoAdjacentes verifica se dois vértices são vizinhos
-func (g *Grafo) SaoAdjacentes(a, b string) bool {
-	vizinhos, ok := g.ListaAdj[a]
-	if !ok {
-		return false
-	}
-	for _, v := range vizinhos {
-		if v == b {
-			return true
-		}
-	}
-	return false
 }
 
 // GetVizinhos retorna os vizinhos de um vértice
