@@ -12,6 +12,7 @@ type Grafo struct {
 	Direcionado bool
 	Vertices    []string            // lista de vértices na ordem
 	ListaAdj    map[string][]string // vértice -> vizinhos
+	MatrizAdj   [][]int             // matriz de adjacência
 }
 
 // NovoGrafo cria um grafo vazio
@@ -21,6 +22,7 @@ func NovoGrafo(direcionado bool, nome string) *Grafo {
 		Direcionado: direcionado,
 		Vertices:    make([]string, 0),
 		ListaAdj:    make(map[string][]string),
+		MatrizAdj:   make([][]int, 0),
 	}
 }
 

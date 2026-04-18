@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/PauloFH/grafos-2026/internal/conversoes"
 	"github.com/PauloFH/grafos-2026/internal/leitor"
 	"github.com/PauloFH/grafos-2026/internal/relatorio"
 )
@@ -40,6 +41,11 @@ func main() {
 		r.Adiciona("VERTICES", relatorio.FormataVertices(g))
 		r.Adiciona("ARESTAS", relatorio.FormataArestas(g))
 		r.Adiciona("LISTA_DE_ADJACENCIA", relatorio.FormataLista(g))
+		conversoes.ListaParaMatriz(g)
+		r.Adiciona("MATRIZ_DE_ADJACENCIA", relatorio.FormataMatriz(g))
+		conversoes.MatrizParaLista(g)
+		r.Adiciona("LISTA_RECONVERTIDA_DA_MATRIZ", relatorio.FormataLista(g))
+		r.Adiciona("SAO_ADJACENTES", relatorio.FormataAdjacentes(g))
 
 		// -------------------------------------------------------
 		// Veja o README para saber como fazer a adição de seções.

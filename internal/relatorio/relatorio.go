@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/PauloFH/grafos-2026/internal/algoritmos"
 	"github.com/PauloFH/grafos-2026/internal/grafo"
 )
 
@@ -101,4 +102,41 @@ func FormataVertices(g *grafo.Grafo) string {
 // FormataArestas gera info básica das arestas
 func FormataArestas(g *grafo.Grafo) string {
 	return fmt.Sprintf("  Total de arestas: %d\n", g.NumArestas())
+}
+
+// FormataMatriz gera o texto da matriz de adjacência
+func FormataMatriz(g *grafo.Grafo) string {
+	if len(g.MatrizAdj) == 0 {
+		return "  (matriz nao gerada)\n"
+	}
+	var sb strings.Builder
+
+	// Cabeçalho
+	sb.WriteString("     ")
+	for _, v := range g.Vertices {
+		sb.WriteString(fmt.Sprintf("%4s", v))
+	}
+	sb.WriteString("\n")
+
+	for i, v := range g.Vertices {
+		sb.WriteString(fmt.Sprintf("%4s ", v))
+		for _, val := range g.MatrizAdj[i] {
+			sb.WriteString(fmt.Sprintf("%4d", val))
+		}
+		sb.WriteString("\n")
+	}
+	return sb.String()
+}
+
+// FormataAdjacentes lista todos os pares de vértices adjacentes
+func FormataAdjacentes(g *grafo.Grafo) string {
+	var sb strings.Builder
+	for _, v := range g.Vertices {
+		for _, viz := range g.ListaAdj[v] {
+			if algoritmos.SaoAdjacentes(g, v, viz) {
+				sb.WriteString(fmt.Sprintf("  %s - %s\n", v, viz))
+			}
+		}
+	}
+	return sb.String()
 }
