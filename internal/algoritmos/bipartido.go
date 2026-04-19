@@ -1,12 +1,6 @@
 package algoritmos
 
-import (
-	"fmt"
-	"sort"
-	"strings"
-
-	"github.com/PauloFH/grafos-2026/internal/grafo"
-)
+import "github.com/PauloFH/grafos-2026/internal/grafo"
 
 type ResultadoBipartido struct {
 	Bipartido bool
@@ -43,33 +37,4 @@ func Bipartido(g *grafo.Grafo) ResultadoBipartido {
 		Bipartido: bipartido,
 		Nivel:     nivel,
 	}
-}
-
-func FormataBipartido(g *grafo.Grafo) string {
-	res := Bipartido(g)
-	var sb strings.Builder
-
-	if !res.Bipartido {
-		sb.WriteString("É bipartido: NÃO\n")
-		return sb.String()
-	}
-
-	sb.WriteString("É bipartido: SIM\n\n")
-
-	grupoA := []string{}
-	grupoB := []string{}
-	for _, v := range g.Vertices {
-		if res.Nivel[v]%2 == 0 {
-			grupoA = append(grupoA, v)
-		} else {
-			grupoB = append(grupoB, v)
-		}
-	}
-	sort.Strings(grupoA)
-	sort.Strings(grupoB)
-
-	sb.WriteString(fmt.Sprintf("Grupo A (nível par):  {%s}\n", strings.Join(grupoA, ", ")))
-	sb.WriteString(fmt.Sprintf("Grupo B (nível ímpar): {%s}\n", strings.Join(grupoB, ", ")))
-
-	return sb.String()
 }

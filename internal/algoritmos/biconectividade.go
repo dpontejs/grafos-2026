@@ -1,9 +1,7 @@
 package algoritmos
 
 import (
-	"fmt"
 	"sort"
-	"strings"
 
 	"github.com/PauloFH/grafos-2026/internal/grafo"
 )
@@ -99,29 +97,4 @@ func extrairBloco(pilha *[]aresta, u, w string) []string {
 	}
 	sort.Strings(result)
 	return result
-}
-
-func FormataLowpt(g *grafo.Grafo) string {
-	res := Biconectividade(g)
-	var sb strings.Builder
-
-	sb.WriteString(fmt.Sprintf("%-10s %-6s %s\n", "Vértice", "num", "lowpt"))
-	sb.WriteString(strings.Repeat("-", 26) + "\n")
-	for _, v := range g.Vertices {
-		sb.WriteString(fmt.Sprintf("%-10s %-6d %d\n", v, res.Num[v], res.Lowpt[v]))
-	}
-
-	sb.WriteString("\n")
-	if len(res.Articulacoes) == 0 {
-		sb.WriteString("Articulações: nenhuma\n")
-	} else {
-		sb.WriteString(fmt.Sprintf("Articulações: %s\n", strings.Join(res.Articulacoes, ", ")))
-	}
-
-	sb.WriteString(fmt.Sprintf("\nBlocos (%d):\n", len(res.Blocos)))
-	for i, bloco := range res.Blocos {
-		sb.WriteString(fmt.Sprintf("  Bloco %d: {%s}\n", i+1, strings.Join(bloco, ", ")))
-	}
-
-	return sb.String()
 }

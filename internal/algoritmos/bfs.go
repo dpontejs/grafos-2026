@@ -1,11 +1,6 @@
 package algoritmos
 
-import (
-	"fmt"
-	"strings"
-
-	"github.com/PauloFH/grafos-2026/internal/grafo"
-)
+import "github.com/PauloFH/grafos-2026/internal/grafo"
 
 type ResultadoBFS struct {
 	Visitados   []string
@@ -42,22 +37,4 @@ func BFS(g *grafo.Grafo, inicio string) ResultadoBFS {
 		Predecessor: predecessor,
 		Nivel:       nivel,
 	}
-}
-
-func FormataBFS(res ResultadoBFS, inicio string) string {
-	var sb strings.Builder
-
-	sb.WriteString(fmt.Sprintf("Vértice inicial: %s\n", inicio))
-	sb.WriteString(fmt.Sprintf("Ordem de visita: %s\n\n", strings.Join(res.Visitados, " -> ")))
-	sb.WriteString(fmt.Sprintf("%-10s %-8s %s\n", "Vértice", "Nível", "Predecessor"))
-	sb.WriteString(strings.Repeat("-", 30) + "\n")
-	for _, v := range res.Visitados {
-		pred := res.Predecessor[v]
-		if pred == "" {
-			pred = "-"
-		}
-		sb.WriteString(fmt.Sprintf("%-10s %-8d %s\n", v, res.Nivel[v], pred))
-	}
-
-	return sb.String()
 }

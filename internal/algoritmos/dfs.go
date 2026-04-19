@@ -1,11 +1,6 @@
 package algoritmos
 
-import (
-	"fmt"
-	"strings"
-
-	"github.com/PauloFH/grafos-2026/internal/grafo"
-)
+import "github.com/PauloFH/grafos-2026/internal/grafo"
 
 type ResultadoDFS struct {
 	Visitados   []string
@@ -46,22 +41,4 @@ func DFS(g *grafo.Grafo, inicio string) ResultadoDFS {
 		Entrada:     entrada,
 		Saida:       saida,
 	}
-}
-
-func FormataDFS(res ResultadoDFS, inicio string) string {
-	var sb strings.Builder
-
-	sb.WriteString(fmt.Sprintf("Vértice inicial: %s\n", inicio))
-	sb.WriteString(fmt.Sprintf("Ordem de visita: %s\n\n", strings.Join(res.Visitados, " -> ")))
-	sb.WriteString(fmt.Sprintf("%-10s %-8s %-8s %s\n", "Vértice", "Entrada", "Saída", "Predecessor"))
-	sb.WriteString(strings.Repeat("-", 38) + "\n")
-	for _, v := range res.Visitados {
-		pred := res.Predecessor[v]
-		if pred == "" {
-			pred = "-"
-		}
-		sb.WriteString(fmt.Sprintf("%-10s %-8d %-8d %s\n", v, res.Entrada[v], res.Saida[v], pred))
-	}
-
-	return sb.String()
 }

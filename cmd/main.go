@@ -52,24 +52,24 @@ func main() {
 			inicio := g.Vertices[0]
 
 			resBFS := algoritmos.BFS(g, inicio)
-			r.Adiciona("BFS", algoritmos.FormataBFS(resBFS, inicio))
+			r.Adiciona("BFS", relatorio.FormataBFS(resBFS, inicio))
 			if err := relatorio.GerarPNGBFS(g, resBFS, inicio, nome+"_BFS", saidas); err != nil {
 				fmt.Println("Aviso: erro ao gerar PNG BFS para", nome, ":", err)
 			}
 
 			resDFS := algoritmos.DFS(g, inicio)
-			r.Adiciona("DFS", algoritmos.FormataDFS(resDFS, inicio))
+			r.Adiciona("DFS", relatorio.FormataDFS(resDFS, inicio))
 			if err := relatorio.GerarPNGDFS(g, resDFS, inicio, nome+"_DFS", saidas); err != nil {
 				fmt.Println("Aviso: erro ao gerar PNG DFS para", nome, ":", err)
 			}
 		}
 
 		if nome == "GRAFO_3" {
-			r.Adiciona("ARTICULACOES_E_BLOCOS", algoritmos.FormataLowpt(g))
+			r.Adiciona("ARTICULACOES_E_BLOCOS", relatorio.FormataBiconectividade(g))
 		}
 
 		if nome == "GRAFO_1" || nome == "GRAFO_2" {
-			r.Adiciona("BIPARTIDO", algoritmos.FormataBipartido(g))
+			r.Adiciona("BIPARTIDO", relatorio.FormataBipartido(g))
 		}
 
 		// -------------------------------------------------------
